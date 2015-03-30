@@ -10,6 +10,8 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 //sourceDirectory in EmberjsKeys.emberjs in Assets := (sourceDirectory in Assets).value / "my-templates"
 
+EmberjsKeys.emberjsPrecompiler := baseDirectory.value / "public" / "javascripts" / "ember-template-compiler.js"
+
 UglifyKeys.uglifyOps := { js =>
   Seq((js.sortBy(_._2), "main.min.js"))
 }
