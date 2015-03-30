@@ -2,19 +2,17 @@
 
 Precompile ember.js templates as part of the SBT asset pipeline.
 
+This plugin is compatible with ember.js 1.10 and later, since the introduction of HTMLBars. For ember.js versions 1.9 and older, use [version 1.0](https://github.com/dwickern/sbt-emberjs/tree/1.0) of this plugin.
+
 ## Usage
 
 Add this line to your project's `plugins.sbt` file:
 
-    addSbtPlugin("com.github.dwickern" % "sbt-emberjs" % "1.0.0")
+    addSbtPlugin("com.github.dwickern" % "sbt-emberjs" % "2.0.0")
 
-Configure `package.json` with the [ember-template-compiler](https://github.com/toranb/ember-template-compiler) version corresponding to the ember.js version you use:
+Configure your `build.sbt` with the path to `ember-template-compiler.js` in your ember.js distribution:
 
-    {
-      "devDependencies": {
-        "ember-template-compiler": "~1.9.0"
-      }
-    }
+    EmberjsKeys.emberjsPrecompiler := baseDirectory.value / "js" / "ember-template-compiler.js"
 
 Once configured, any `*.handlebars` or `*.hbs` files placed in `app/assets/templates` will be compiled to JavaScript code in `target/web/public`.
 
