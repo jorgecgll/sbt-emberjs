@@ -67,15 +67,16 @@
                 });
             } catch (err) {
                 // HACK parse the line number from the error message
-                var mat = err.message.match(/error on line (\d+):/);
+                var mat = err.message.match(/error on line (\d+):/)
+                       || err.message.match(/\(on line (\d+)\)/);
                 var line = mat && parseInt(mat[1]);
 
                 problems.push({
                     message: err.message,
                     severity: 'error',
                     source: input,
-                    lineNumber: line,
-                    lineContent: line && contents.split('\n')[line],
+                    lineNumber: line || 0,
+                    lineContent: line && contents.split('\n')[line - 1],
                     characterOffset: 0 // TODO include column number in error
                 });
                 results.push({
