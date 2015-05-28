@@ -8,7 +8,7 @@ This plugin is compatible with ember.js 1.10 and later, since the introduction o
 
 Add this line to your project's `plugins.sbt` file:
 
-    addSbtPlugin("com.github.dwickern" % "sbt-emberjs" % "2.0.0")
+    addSbtPlugin("com.github.dwickern" % "sbt-emberjs" % "2.0.1")
 
 Configure your `build.sbt` with the path to `ember-template-compiler.js` in your ember.js distribution:
 
