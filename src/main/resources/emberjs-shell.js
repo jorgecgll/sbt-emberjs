@@ -46,46 +46,52 @@
         var templateName = relativePath.replace(extension, '').replace(/\\/g, '/');
         var output = path.join(target, outputFile);
 
-        fs.readFile(input, 'utf8', function (e, contents) {
-            throwIfErr(e);
+        console.log("input " + input);
+        console.log("relativePath " + relativePath);
+        console.log("outputFile " + outputFile);
+        console.log("templateName " + templateName);
+        console.log("output " + output);
 
-            try {
-                var template = compiler.precompile(contents, false);
-
-                mkdirp(path.dirname(output), function (e) {
-                    throwIfErr(e);
-
-                    var js = "Ember.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + template + ");";
-
-                    fs.writeFile(output, js, 'utf8', function (e) {
-                        throwIfErr(e);
-
-                        results.push({
-                            source: input,
-                            result: {
-                                filesRead: [ input ],
-                                filesWritten: [ output ]
-                            }
-                        });
-                        compileDone();
-                    });
-                });
-            } catch (err) {
-                problems.push({
-                    message: err.message,
-                    severity: 'error',
-                    source: input,
-                    lineNumber: err.line && err.line + 1,
-                    characterOffset: err.col,
-                    lineContent: err.line && contents.split('\n')[err.line]
-                });
-                results.push({
-                    source: input,
-                    result: null
-                });
-
-                compileDone();
-            }
-        });
+        // fs.readFile(input, 'utf8', function (e, contents) {
+        //     throwIfErr(e);
+        //
+        //     try {
+        //         var template = compiler.precompile(contents, false);
+        //
+        //         mkdirp(path.dirname(output), function (e) {
+        //             throwIfErr(e);
+        //
+        //             var js = "Ember.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + template + ");";
+        //
+        //             fs.writeFile(output, js, 'utf8', function (e) {
+        //                 throwIfErr(e);
+        //
+        //                 results.push({
+        //                     source: input,
+        //                     result: {
+        //                         filesRead: [ input ],
+        //                         filesWritten: [ output ]
+        //                     }
+        //                 });
+        //                 compileDone();
+        //             });
+        //         });
+        //     } catch (err) {
+        //         problems.push({
+        //             message: err.message,
+        //             severity: 'error',
+        //             source: input,
+        //             lineNumber: err.line && err.line + 1,
+        //             characterOffset: err.col,
+        //             lineContent: err.line && contents.split('\n')[err.line]
+        //         });
+        //         results.push({
+        //             source: input,
+        //             result: null
+        //         });
+        //
+        //         compileDone();
+        //     }
+        // });
     });
 })();
