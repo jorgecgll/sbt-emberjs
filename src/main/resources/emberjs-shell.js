@@ -38,25 +38,27 @@
         var templateName = relativePath.replace(extension, '').replace(/\\/g, '/');
         var output = path.join(target, 'templates.pre.js');
 
-        try {
+        console.log("test");
 
-          var template = fs.readFileSync(input).toString();
-          var precompiledTemplate = compiler.precompile(template, false);
-          var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
-
-          mkdirp(path.dirname(output), function (e) {
-
-            throwIfErr(e);
-
-            fs.appendFileSync(output, js, 'utf8' , function(e){
-              throwIfErr(e);
-            });
-
-          });
-
-        } catch (err) {
-          throwIfErr(e);
-        }
+        // try {
+        //
+        //   var template = fs.readFileSync(input).toString();
+        //   var precompiledTemplate = compiler.precompile(template, false);
+        //   var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
+        //
+        //   mkdirp(path.dirname(output), function (e) {
+        //
+        //     throwIfErr(e);
+        //
+        //     fs.appendFileSync(output, js, 'utf8' , function(e){
+        //       throwIfErr(e);
+        //     });
+        //
+        //   });
+        //
+        // } catch (err) {
+        //   throwIfErr(e);
+        // }
     });
 
 })();
