@@ -6,7 +6,7 @@
         fs = require('fs'),
         compiler = require('ember-template-compiler'),
         mkdirp = require('mkdirp'),
-        var fs = require('fs'),
+        fs = require('fs'),
         path = require('path');
 
     var SOURCE_FILE_MAPPINGS_ARG = 2;
