@@ -46,11 +46,27 @@
         var relativePath = mapping[1];
         var templateName = relativePath.replace(extension, '').replace(/\\/g, '/');
 
+        var outputFile = relativePath.replace(extension, '.js');
+        var output = path.join(target, outputFile);
+
         var template = fs.readFileSync(input).toString();
         var precompiledTemplate = compiler.precompile(template, false);
 
-        js += "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
+        var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
 
+        fs.appendFileSync('./app/assets/javascripts/templates.pre.js', js, function(e){
+          throwIfErr(e);
+
+          results.push({
+            source: input,
+            result: {
+              filesRead: [ input ],
+              filesWritten: [ output ]
+            }
+          });
+
+          compileDone();
+        });
         // fs.readFile(input, 'utf8', function (e, contents) {
         //     throwIfErr(e);
         //
@@ -94,6 +110,4 @@
         // });
     });
 
-    fs.writeFileSync('./app/assets/javascripts/templates.pre.js', js);
-    console.log('All templates precompiled');
 })();
