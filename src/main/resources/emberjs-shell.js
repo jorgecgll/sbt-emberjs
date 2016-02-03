@@ -14,16 +14,8 @@
 
     var sourceFileMappings = JSON.parse(args[SOURCE_FILE_MAPPINGS_ARG]);
     var target = args[TARGET_ARG];
-
     var sourcesToProcess = sourceFileMappings.length;
-    var results = [];
-    var problems = [];
 
-    function compileDone() {
-        if (--sourcesToProcess === 0) {
-            console.log("\u0010" + JSON.stringify({results: results, problems: problems}));
-        }
-    }
 
     function throwIfErr(e) {
         if (e) throw e;
@@ -58,14 +50,12 @@
 
             fs.appendFileSync(output, js, 'utf8' , function(e){
               throwIfErr(e);
-
-              console.log(input);
             });
 
           });
 
         } catch (err) {
-          console.log("error: " + input + " " + err.message + ":" + err.line);
+          throwIfErr(e);
         }
     });
 
