@@ -67,6 +67,8 @@
                   filesWritten: [ input ]
                 }
               });
+
+              console.log(JSON.stringify(results);
             });
 
           });
@@ -86,7 +88,7 @@
           });
         }
     });
-    
+
     compileDone();
 
 })();
