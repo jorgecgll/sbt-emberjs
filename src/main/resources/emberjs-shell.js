@@ -6,6 +6,7 @@
         fs = require('fs'),
         compiler = require('ember-template-compiler'),
         mkdirp = require('mkdirp'),
+        var fs = require('fs'),
         path = require('path');
 
     var SOURCE_FILE_MAPPINGS_ARG = 2;
@@ -51,6 +52,12 @@
         console.log("outputFile " + outputFile);
         console.log("templateName " + templateName);
         console.log("output " + output);
+
+        var template = fs.readFileSync(input).toString();
+        var precompiledTemplate = compiler.precompile(template, false);
+        var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
+
+        console.log(js);
 
         // fs.readFile(input, 'utf8', function (e, contents) {
         //     throwIfErr(e);
