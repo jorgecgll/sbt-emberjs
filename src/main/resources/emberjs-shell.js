@@ -39,6 +39,7 @@
 
     /** Matches a file extension (everything after and including the dot) */
     var extension = /\.[^/\\]*$/;
+    var js = "";
 
     sourceFileMappings.forEach(function (mapping) {
         var input = mapping[0];
@@ -48,9 +49,7 @@
         var template = fs.readFileSync(input).toString();
         var precompiledTemplate = compiler.precompile(template, false);
 
-        var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
-
-        fs.writeFileSync('./templates.pre.js', js);
+        var js += "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
 
         // fs.readFile(input, 'utf8', function (e, contents) {
         //     throwIfErr(e);
@@ -94,4 +93,7 @@
         //     }
         // });
     });
+
+    fs.writeFileSync('./app/assets/javascripts/templates.pre.js', js);
+    console.log('All templates precompiled');
 })();
