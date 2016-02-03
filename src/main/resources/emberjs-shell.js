@@ -49,7 +49,7 @@
         var template = fs.readFileSync(input).toString();
         var precompiledTemplate = compiler.precompile(template, false);
 
-        var js += "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
+        js += "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
 
         // fs.readFile(input, 'utf8', function (e, contents) {
         //     throwIfErr(e);
