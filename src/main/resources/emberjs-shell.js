@@ -39,7 +39,6 @@
 
     /** Matches a file extension (everything after and including the dot) */
     var extension = /\.[^/\\]*$/;
-    var js = "";
 
     sourceFileMappings.forEach(function (mapping) {
         var input = mapping[0];
@@ -60,32 +59,13 @@
             fs.appendFileSync(output, js, 'utf8' , function(e){
               throwIfErr(e);
 
-              results.push({
-                source: input,
-                result: {
-                  filesRead: [ input ],
-                  filesWritten: [ output ]
-                }
-              });
-
-              console.log(results);
+              console.log(input);
             });
 
           });
 
         } catch (err) {
-          problems.push({
-              message: err.message,
-              severity: 'error',
-              source: input,
-              lineNumber: err.line && err.line + 1,
-              characterOffset: err.col,
-              lineContent: err.line && contents.split('\n')[err.line]
-          });
-          results.push({
-              source: input,
-              result: null
-          });
+          console.log("error: " + input + " " + err.message + ":" + err.line);
         }
     });
 
