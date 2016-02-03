@@ -54,7 +54,7 @@
 
         var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
 
-        fs.appendFileSync('./app/assets/javascripts/templates.pre.js', js, function(e){
+        fs.appendFileSync('./app/assets/javascripts/templates.pre.js', js, 'utf8' , function(e){
           throwIfErr(e);
 
           results.push({
