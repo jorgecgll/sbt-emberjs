@@ -40,12 +40,16 @@
     /** Matches a file extension (everything after and including the dot) */
     var extension = /\.[^/\\]*$/;
 
+    var outputFile = 'templates.pre.js';
+    var output = path.join(target, outputFile);
+    mkdirp(path.dirname(output));
+
     sourceFileMappings.forEach(function (mapping) {
         var input = mapping[0];
         var relativePath = mapping[1];
-        var outputFile = 'templates.pre.js';
+
         var templateName = relativePath.replace(extension, '').replace(/\\/g, '/');
-        var output = path.join(target, outputFile);
+
 
         console.log("output " + output);
 
