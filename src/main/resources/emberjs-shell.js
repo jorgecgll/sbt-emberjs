@@ -64,11 +64,11 @@
                 source: input,
                 result: {
                   filesRead: [ input ],
-                  filesWritten: [ input ]
+                  filesWritten: [ output ]
                 }
               });
 
-              console.log(JSON.stringify(results));
+              console.log(results);
             });
 
           });
@@ -88,7 +88,5 @@
           });
         }
     });
-
-    compileDone();
 
 })();
