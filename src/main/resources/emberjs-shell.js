@@ -45,76 +45,48 @@
         var input = mapping[0];
         var relativePath = mapping[1];
         var templateName = relativePath.replace(extension, '').replace(/\\/g, '/');
-
         var output = path.join(target, 'templates.pre.js');
 
-        var template = fs.readFileSync(input).toString();
-        var precompiledTemplate = compiler.precompile(template, false);
+        try {
 
-        var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
+          var template = fs.readFileSync(input).toString();
+          var precompiledTemplate = compiler.precompile(template, false);
+          var js = "\n\nEmber.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + precompiledTemplate + ");";
 
+          mkdirp(path.dirname(output), function (e) {
 
-        mkdirp(path.dirname(output), function (e) {
-
-          throwIfErr(e);
-
-          fs.appendFileSync(output, js, 'utf8' , function(e){
             throwIfErr(e);
 
-            results.push({
-              source: input,
-              result: {
-                filesRead: [ input ],
-                filesWritten: [ output ]
-              }
+            fs.appendFileSync(output, js, 'utf8' , function(e){
+              throwIfErr(e);
+
+              results.push({
+                source: input,
+                result: {
+                  filesRead: [ input ],
+                  filesWritten: [ input ]
+                }
+              });
             });
-  
-            compileDone();
+
           });
 
-        });
-
-        // fs.readFile(input, 'utf8', function (e, contents) {
-        //     throwIfErr(e);
-        //
-        //     try {
-        //         var template = compiler.precompile(contents, false);
-        //
-        //         mkdirp(path.dirname(output), function (e) {
-        //             throwIfErr(e);
-        //
-        //             var js = "Ember.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + template + ");";
-        //
-        //             fs.writeFile(output, js, 'utf8', function (e) {
-        //                 throwIfErr(e);
-        //
-        //                 results.push({
-        //                     source: input,
-        //                     result: {
-        //                         filesRead: [ input ],
-        //                         filesWritten: [ output ]
-        //                     }
-        //                 });
-        //                 compileDone();
-        //             });
-        //         });
-        //     } catch (err) {
-        //         problems.push({
-        //             message: err.message,
-        //             severity: 'error',
-        //             source: input,
-        //             lineNumber: err.line && err.line + 1,
-        //             characterOffset: err.col,
-        //             lineContent: err.line && contents.split('\n')[err.line]
-        //         });
-        //         results.push({
-        //             source: input,
-        //             result: null
-        //         });
-        //
-        //         compileDone();
-        //     }
-        // });
+        } catch (err) {
+          problems.push({
+              message: err.message,
+              severity: 'error',
+              source: input,
+              lineNumber: err.line && err.line + 1,
+              characterOffset: err.col,
+              lineContent: err.line && contents.split('\n')[err.line]
+          });
+          results.push({
+              source: input,
+              result: null
+          });
+        }
     });
+    
+    compileDone();
 
 })();
