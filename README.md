@@ -1,6 +1,6 @@
 # sbt-emberjs
 
-Precompile ember.js templates as part of the SBT asset pipeline.
+Precompile ember.js (v1.7) templates as part of the SBT asset pipeline.
 
 ## Usage
 
