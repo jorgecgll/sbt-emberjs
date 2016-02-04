@@ -44,7 +44,7 @@
         var relativePath = mapping[1];
         var outputFile = relativePath.replace(extension, '.js');
         var templateName = relativePath.replace(extension, '').replace(/\\/g, '/');
-        var output = path.join(target, outputFile);
+        var output = path.join(target, 'templates.pre.js');
 
         fs.readFile(input, 'utf8', function (e, contents) {
             throwIfErr(e);
@@ -57,7 +57,7 @@
 
                     var js = "Ember.TEMPLATES['" + templateName + "'] = Ember.Handlebars.template(" + template + ");";
 
-                    fs.writeFile(output, js, 'utf8', function (e) {
+                    fs.appendFile(output, js, 'utf8', function (e) {
                         throwIfErr(e);
 
                         results.push({
