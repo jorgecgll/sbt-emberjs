@@ -1,8 +1,4 @@
-import bintray.Keys._
-
 sbtPlugin := true
-
-organization := "com.github.dwickern"
 
 name := "sbt-emberjs"
 
@@ -23,12 +19,6 @@ resolvers ++= Seq(
 licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
 
 publishMavenStyle := false
-
-bintraySettings
-
-repository in bintray := "sbt-plugins"
-
-bintrayOrganization in bintray := None
 
 scriptedSettings
 
